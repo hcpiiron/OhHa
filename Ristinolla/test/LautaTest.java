@@ -34,7 +34,7 @@ public class LautaTest {
     @Before
     public void setUp() {
         pelaaja= new Pelaaja("Matti");
-        lauta = new Lauta(3);
+        lauta = new Lauta();
         
     }
     

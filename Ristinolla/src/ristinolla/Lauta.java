@@ -5,7 +5,6 @@
 package ristinolla;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,13 +15,12 @@ public class Lauta {
 
     private int[][] lauta;
     private List<Pelaaja> pelaajat;
-    private int koko;
     private int voittosuora = 3;
 
-    public Lauta(int koko) {
-        this.koko = koko;
-        this.lauta = new int[3][3]; //Testataan toimintaa aluksi 3x3 kokoisella kentällä
-        this.pelaajat = new ArrayList<>();
+    public Lauta() {
+
+        this.lauta = new int[10][10];
+        this.pelaajat = new ArrayList<Pelaaja>();
 
         for (int i = 0; i < lauta.length; i++) {
             for (int j = 0; j < lauta[i].length; j++) {
@@ -45,6 +43,21 @@ public class Lauta {
 
     public void asetaMerkki(int merkki, int x, int y) {
         lauta[x][y] = merkki;
+    }
+
+    public void asetaMerkki(String koordinaatti, int kumpi) {
+        int x;
+        int y;
+        if (koordinaatti.startsWith("0")) {
+            x = 0;
+            y = Integer.parseInt(koordinaatti);
+        } else {
+            String xx = "" + koordinaatti.charAt(0);
+            String yy = "" + koordinaatti.charAt(1);
+            x = Integer.parseInt(xx);
+            y = Integer.parseInt(yy);
+        }
+        asetaMerkki(kumpi, x, y);
     }
 
     public int testaaVoittoVaaka() { // ketällä X merkataan 1, 0 merkataan 2, ja tyhjä ruutu 0. Palauttaa voittajan symbolin 
@@ -100,6 +113,4 @@ public class Lauta {
 
     public void testaaVoittoVino() {
     }
-    
-    
 }

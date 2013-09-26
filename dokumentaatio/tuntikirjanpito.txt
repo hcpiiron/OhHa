@@ -6,15 +6,21 @@ Tutustumista githubiin ja dokumentaation alotusta
 17 - 17.30
 Luokkakaavion suunnittelua, pelin rakenteen pohdintaa
 
-12.9
+12.9.
 15.00 - 17.00
 Testien tekoa, pelin hahmottelua ja luokkien perustusta
 
-15.9
+15.9.
 14.00 - 15.30
 Pelin rakenteen tarkennusta, toimintalogiikan myös
 
-19.9
+19.9.
 15.30 - 17.30
 Laudalle toimintaa, pelialustan toteutus seka metodit vaaka- ja pystysuunnassa
 olevien voittosuorien tunnistamiseen. Myös metodien testausta
+
+26. 9.
+14.00 - 18.00
+Grafiikkaa kuntoon, pelialustan luominen ja kommunikointi lauta-luokan kanssa
+Testaa voittosuoria vaaka- ja pystysuunnassa.
+Lauta- luokkaan hieman lisää ominaisuuksia
