@@ -15,8 +15,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,13 +28,14 @@ public class LautaUI implements Runnable {
     private Lauta lauta;
     private boolean vuoroX = true;
     private boolean freeze = false;
-    
+    private ArrayList<JButton> listaKentanNapeista;
 
     public LautaUI() {
     }
 
     @Override
     public void run() {
+        listaKentanNapeista = new ArrayList<JButton>();
         lauta = new Lauta();
 
         frame = new JFrame("Ristinolla");
@@ -43,6 +43,7 @@ public class LautaUI implements Runnable {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         luoKomponentit(frame.getContentPane(), "valikko");
         frame.pack();
+        frame.setLocation(300, 300);
         frame.setVisible(true);
 
         kentta = new JFrame("Ristinolla");
@@ -50,6 +51,7 @@ public class LautaUI implements Runnable {
         kentta.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         luoKomponentit(kentta.getContentPane(), "kentta");
         kentta.pack();
+        kentta.setLocation(900, 300);
         kentta.setVisible(false);
 
 
@@ -72,32 +74,30 @@ public class LautaUI implements Runnable {
 
     private Component luoValikko() {
         JPanel panel = new JPanel(new GridLayout(1, 3));
-        MouseListener hiiri = new MouseListener() {
+
+        JButton pelaa = new JButton("Pelaa");
+        pelaa.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent me) {
+            public void actionPerformed(ActionEvent a) {
+                alustaKentta();
                 kentta.setVisible(true);
             }
 
-            @Override
-            public void mousePressed(MouseEvent me) {
-            }
+            private void alustaKentta() {
+                freeze = false;
+                lauta.tyhjenna();
+                if (!listaKentanNapeista.isEmpty()) {
+                    for (JButton nappi : listaKentanNapeista) {
+                        nappi.setText(" ");
+                    }
+                }
 
-            @Override
-            public void mouseReleased(MouseEvent me) {
             }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-            }
-        };
-        JButton pelaa = new JButton("Pelaa");
-        pelaa.addMouseListener(hiiri);
+        });
         panel.add(pelaa);
         panel.add(new JButton("Tulokset"));
+        
+        
         panel.add(new JButton("Asetukset"));
         return panel;
     }
@@ -128,10 +128,19 @@ public class LautaUI implements Runnable {
                             }
                             if (lauta.testaaVoittoPysty() != 0 || lauta.testaaVoittoVaaka() != 0) {
                                 freeze = true;
-                                System.out.println("ONNEA VOITTAJALLE");
-                                
-                                //lisa piste voittavalle pelaajalle
-                                //laita OK-nappi, josta peli käynnistyy uudelleen
+
+                                //lisää piste voittavalle pelaajalle
+
+                                LoppuIkkuna gui = new LoppuIkkuna(frame);
+                                gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                                gui.setSize(400, 100);
+                                gui.setLocation(1100, 500);
+                                gui.setTitle("BOOM!");
+                                gui.setVisible(true);
+
+
+
+
                             }
                         }
                     }
@@ -139,8 +148,9 @@ public class LautaUI implements Runnable {
             });
             nappi.setText(" ");
             nappi.setName(rivit + "" + sarake);
+            listaKentanNapeista.add(nappi);
             panel.add(nappi);
-
+            
             count++;
             sarake++;
             if (count == 10) {

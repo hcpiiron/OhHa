@@ -113,4 +113,12 @@ public class Lauta {
 
     public void testaaVoittoVino() {
     }
+
+    void tyhjenna() {
+         for (int i = 0; i < lauta.length; i++) {
+            for (int j = 0; j < lauta[i].length; j++) {
+                lauta[i][j] = 0;
+            }
+        }
+    }
 }

@@ -24,3 +24,7 @@ olevien voittosuorien tunnistamiseen. Myös metodien testausta
 Grafiikkaa kuntoon, pelialustan luominen ja kommunikointi lauta-luokan kanssa
 Testaa voittosuoria vaaka- ja pystysuunnassa.
 Lauta- luokkaan hieman lisää ominaisuuksia
+
+29. 9.
+15.00 - 18.00
+Pelin perustoiminto kunnossa, jotain metodeja siistitty
