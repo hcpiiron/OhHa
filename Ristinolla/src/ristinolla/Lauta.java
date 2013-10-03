@@ -1,50 +1,77 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ristinolla;
 
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- *
- * @author hcpiiron
- */
 public class Lauta {
 
     private int[][] lauta;
-    private List<Pelaaja> pelaajat;
     private int voittosuora = 3;
+    private String pelaajaX;
+    private String pelaajaO;
+    
 
     public Lauta() {
-
         this.lauta = new int[10][10];
-        this.pelaajat = new ArrayList<Pelaaja>();
-
         for (int i = 0; i < lauta.length; i++) {
             for (int j = 0; j < lauta[i].length; j++) {
                 lauta[i][j] = 0;
             }
         } // Voittoja etsiessä "tyhjät ruudut" ovat nollia
     }
-
+    
+    /**
+     * Metodi muuttaa pelin voittamiseen tarvittavan 
+     * voittosuoran pituutta
+     * 
+     * @param pituus pelaaja antaa asetuksissa halutun
+     * voittosuoran pituuden, ja se annetaan metodille
+     * parametrina
+     */
     public void muutaVoittosuoraa(int pituus) {
-        this.voittosuora = pituus;
+        if (pituus == 2 || pituus == 3 || pituus == 4 || pituus == 5 || pituus == 6 || pituus == 7 || pituus == 8 || pituus == 9) {
+            this.voittosuora = pituus;
+        }
     }
-
-    public void lisaaPelaaja(Pelaaja pelaaja) {
-        pelaajat.add(pelaaja);
+    
+    /**
+     * Metodi tallentaa laudalle nimimerkit
+     * pelaajista.
+     * 
+     * @param pelaaja1 ristiä pelaavan pelaajan nimimerkki
+     * @param pelaaja2 nollaa pelaavan pelaajan nimimerkki
+     */
+    public void uudetPelaajat(String pelaaja1, String pelaaja2){
+        pelaajaX = pelaaja1;
+        pelaajaO = pelaaja2;
     }
-
-    public List<Pelaaja> getPelaajat() {
-        return pelaajat;
-    }
-
+    
     public void asetaMerkki(int merkki, int x, int y) {
         lauta[x][y] = merkki;
     }
-
+    
+    /**
+     * Metodi palauttaa voittajan nimimerkin
+     * 
+     * @param kumpi kuvaa merkkiä jota pelaava pelaaja
+     * voitti
+     * @return palauttaa halutun nimimerkin
+     */
+    public String getVoittaja(int kumpi){
+        if (kumpi == 1) {
+            return pelaajaX;
+        } else{
+            return pelaajaO;
+        }
+    }
+    
+    /**
+     * Metodi muokkaa String -muodossa annetun koordinaatin
+     * asetaMerkki() -metodin haluamaan muotoon int x, int y
+     * 
+     * @param koordinaatti String -muodossa oleva luku, joka kuvaa
+     * laudan koordinaattia
+     * @param kumpi luku joka kuvaa ristiä tai nolla
+     */
     public void asetaMerkki(String koordinaatti, int kumpi) {
         int x;
         int y;
@@ -59,8 +86,16 @@ public class Lauta {
         }
         asetaMerkki(kumpi, x, y);
     }
-
-    public int testaaVoittoVaaka() { // ketällä X merkataan 1, 0 merkataan 2, ja tyhjä ruutu 0. Palauttaa voittajan symbolin 
+    
+    /**
+     * Metodi tarkistaa pelilaudalta löytyykö
+     * halutun pituisia voittosuoria vaakatasossa
+     * 
+     * @return luku joka kuvaa joko ristin voittoa(1),
+     * nollan voittoa(2) tai kertoo ettei voittosuoraa
+     * löydy(0)
+     */
+    public int testaaVoittoVaaka() {
         int counter = 0;
         for (int i = 0; i < lauta.length; i++) {
             for (int j = 0; j < lauta[i].length; j++) {
@@ -84,7 +119,15 @@ public class Lauta {
         }
         return 0;
     }
-
+    
+    /**
+     * Metodi tarkistaa pelilaudalta löytyykö
+     * halutun pituisia voittosuoria pystysuunnassa
+     * 
+     * @return luku joka kuvaa joko ristin voittoa(1),
+     * nollan voittoa(2) tai kertoo ettei voittosuoraa
+     * löydy(0)
+     */
     public int testaaVoittoPysty() {
         int counter = 0;
         for (int i = 0; i < lauta.length; i++) {
@@ -108,12 +151,25 @@ public class Lauta {
             }
         }
         return 0;
-
     }
-
+    
+    /**
+     * Metodi tarkistaa pelilaudalta löytyykö
+     * halutun pituisia voittosuoria vinottain
+     * 
+     * @return luku joka kuvaa joko ristin voittoa(1),
+     * nollan voittoa(2) tai kertoo ettei voittosuoraa
+     * löydy(0)
+     */
     public void testaaVoittoVino() {
+        //WORK ON PROGRESS
     }
-
+    
+    /**
+     * Metodi tyhjentää laudan, eli merkkaa
+     * kaikki kentät kokonaislukutaulukossa
+     * nollaksi.
+     */
     void tyhjenna() {
          for (int i = 0; i < lauta.length; i++) {
             for (int j = 0; j < lauta[i].length; j++) {

@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ristinolla.Pelaaja;
 import ristinolla.Tilasto;
 
 /**
@@ -17,7 +16,7 @@ import ristinolla.Tilasto;
  * @author hcpiiron
  */
 public class TilastoTest {
-    private Pelaaja pelaaja;
+    private String pelaaja;
     private Tilasto tilasto;
     
     public TilastoTest() {
@@ -33,7 +32,7 @@ public class TilastoTest {
     
     @Before
     public void setUp() {
-        pelaaja = new Pelaaja("Matti");
+        pelaaja = "Matti";
         tilasto = new Tilasto();
         
     }
@@ -45,14 +44,37 @@ public class TilastoTest {
     @Test
     public void pelaajanLisaaminen(){
         tilasto.lisaaPelaaja(pelaaja);
-        assertTrue(tilasto.getLista().contains(pelaaja));
+        assertTrue(tilasto.getPelaajat().contains(pelaaja));
+    }
+    
+    @Test 
+    public void pelaajalistanHakeminen(){
+        tilasto.lisaaPelaaja(pelaaja);
+        assertFalse(tilasto.getPelaajat().isEmpty());
     }
     
     @Test
-    public void pelaajanPoistaminen(){
+    public void pelaajallePiste(){
         tilasto.lisaaPelaaja(pelaaja);
-        assertTrue(tilasto.getLista().contains(pelaaja));
-        tilasto.poistaPelaaja(pelaaja.getNimi());
-        assertFalse(tilasto.getLista().contains(pelaaja));
+        tilasto.lisaaPiste(pelaaja);
+        assertTrue(tilasto.getPisteLista().get(pelaaja) == 1);
+    }
+    
+    @Test
+    public void pisteidenNollaus(){
+        tilasto.lisaaPelaaja(pelaaja);
+        tilasto.lisaaPiste(pelaaja);
+        assertTrue(tilasto.getPisteLista().get(pelaaja) == 1);
+        tilasto.nollaaTulokset();
+        assertTrue(tilasto.getPisteLista().get(pelaaja) == 0);
+    }
+    
+    @Test
+    public void tilastonNollaus(){
+        tilasto.lisaaPelaaja(pelaaja);
+        tilasto.lisaaPiste(pelaaja);
+        tilasto.tyhjennaTilastot();
+        assertTrue(tilasto.getPelaajat().isEmpty());
+        assertTrue(tilasto.getPisteLista().isEmpty());
     }
 }

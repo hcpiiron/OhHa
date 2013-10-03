@@ -10,15 +10,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import ristinolla.Lauta;
-import ristinolla.Pelaaja;
 
 /**
  *
  * @author hcpiiron
  */
 public class LautaTest {
-    private Pelaaja pelaaja;
     private Lauta lauta;
+    private String pelaaja1;
+    private String pelaaja2;
     
     public LautaTest() {
     }
@@ -33,9 +33,9 @@ public class LautaTest {
     
     @Before
     public void setUp() {
-        pelaaja= new Pelaaja("Matti");
+        pelaaja1 = "Matti";
+        pelaaja2 = "Petteri";
         lauta = new Lauta();
-        
     }
     
     @After
@@ -44,8 +44,9 @@ public class LautaTest {
     
     @Test
     public void lisaaPelaaja(){
-        lauta.lisaaPelaaja(pelaaja);
-        assertTrue(lauta.getPelaajat().contains(pelaaja));
+        lauta.uudetPelaajat(pelaaja1, pelaaja2);
+        assertTrue(lauta.getVoittaja(1).matches(pelaaja1));
+        assertTrue(lauta.getVoittaja(2).matches(pelaaja2));
     }
     
     @Test
