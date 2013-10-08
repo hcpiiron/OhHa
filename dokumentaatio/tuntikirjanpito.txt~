@@ -33,3 +33,8 @@ Pelin perustoiminto kunnossa, jotain metodeja siistitty
 18.00 - 21.00
 Asetukset -toimintoja lisätty käyttöliittymään. Myös Pelaaja-luokan poisjättäminen
 tarpeettomuuttaan.
+
+3.10.
+13.00 - 17.30
+Tilastot -toiminto lisätty käyttöliittymään, javadoc tekoa, testien muokkausta ja
+lisäystä, sekvenssikaavioiden tekoa

@@ -7,13 +7,19 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -27,23 +33,32 @@ public class LautaUI implements Runnable {
     private boolean vuoroX = true;
     private boolean freeze = false;
     private ArrayList<JButton> listaKentanNapeista;
-    private Tilasto tilasto = new Tilasto();
+    private Tilasto tilasto;
     private boolean peliKaynnissa = false;
     private ArrayList<JLabel> rankingPaikat = new ArrayList<>();
+    private Image kuva;
+    private String tilastoPolku = "tilasto.dat";
 
     public LautaUI() {
+        kuva = new ImageIcon("/cs/fs2/home/hcpiiron/OhHa/Ristinolla/src/kuvat/Tausta.jpg").getImage();
     }
-
+    
     @Override
     public void run() {
+        try {
+            tilasto = Tilasto.lueTiedostosta(tilastoPolku);
+        } catch (IOException | ClassNotFoundException ex) {
+            tilasto = new Tilasto();
+        }
         listaKentanNapeista = new ArrayList<>();
         lauta = new Lauta();
-
+        
         frame = new JFrame("Ristinolla");
         frame.setPreferredSize(new Dimension(500, 500));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         luoKomponentit(frame.getContentPane(), "valikko");
         frame.pack();
+        
         frame.setLocation(300, 300);
         frame.setVisible(true);
 
@@ -114,7 +129,7 @@ public class LautaUI implements Runnable {
         final JTextField pelaaja2 = new JTextField();
         JLabel suoranPituusTeksti = new JLabel("Voittosuoran pituus (2-9): ");
         final JTextField suoranPituus = new JTextField();
-
+        
         JButton tallennusNappi = new JButton("Tallenna");
         tallennusNappi.addActionListener(new ActionListener() {
             @Override
@@ -161,8 +176,12 @@ public class LautaUI implements Runnable {
     }
 
     private Component luoValikko() {
-        JPanel panel = new JPanel(new GridLayout(1, 3));
-
+        JSplitPane palautettava = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        
+        ImageIcon haluttuKuva = new ImageIcon(kuva);
+        JLabel alhaallaKuva = new JLabel(haluttuKuva);
+        JPanel ylhaallaValikko = new JPanel(new GridLayout(1, 3));
+        
         JButton pelaa = new JButton("Pelaa");
         pelaa.addActionListener(new ActionListener() {
             @Override
@@ -171,7 +190,7 @@ public class LautaUI implements Runnable {
                 kentta.setVisible(true);
                 peliKaynnissa = true;
             }
-
+            
             private void alustaKentta() {
                 if (!peliKaynnissa) {
                     freeze = false;
@@ -184,7 +203,7 @@ public class LautaUI implements Runnable {
                 }
             }
         });
-        panel.add(pelaa);
+        ylhaallaValikko.add(pelaa);
 
         JButton tuloksetNappi = new JButton("Tulokset");
         tuloksetNappi.addActionListener(new ActionListener() {
@@ -201,7 +220,7 @@ public class LautaUI implements Runnable {
                 tulokset.setVisible(true);
             }
         });
-        panel.add(tuloksetNappi);
+        ylhaallaValikko.add(tuloksetNappi);
 
         JButton asetusNappi = new JButton("Asetukset");
         asetusNappi.addActionListener(new ActionListener() {
@@ -210,9 +229,10 @@ public class LautaUI implements Runnable {
                 asetukset.setVisible(true);
             }
         });
-        panel.add(asetusNappi);
-
-        return panel;
+        ylhaallaValikko.add(asetusNappi);
+        palautettava.setTopComponent(ylhaallaValikko);
+        palautettava.setBottomComponent(alhaallaKuva);
+        return palautettava;
     }
 
     private Component luoKentta() {
@@ -246,6 +266,11 @@ public class LautaUI implements Runnable {
                                     kumpi = 2;
                                 }
                                 tilasto.lisaaPiste(lauta.getVoittaja(kumpi));
+                                try {
+                                    tilasto.tallennaTiedostoon(tilastoPolku);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LautaUI.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 PopUp gui = new PopUp(frame);
                                 gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                                 gui.setSize(400, 100);

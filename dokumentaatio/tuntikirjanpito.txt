@@ -38,3 +38,11 @@ tarpeettomuuttaan.
 13.00 - 17.30
 Tilastot -toiminto lisätty käyttöliittymään, javadoc tekoa, testien muokkausta ja
 lisäystä, sekvenssikaavioiden tekoa
+
+7. 10.
+17.00 - 18.00
+Kuvan lisääminen niin että ohjelma lukee tiedostosta. Ongelmia tiedostopolun kanssa
+
+8. 10.
+15.30 - 17.30
+Tilastoluokan serializable-toimintojen kehittelyä
