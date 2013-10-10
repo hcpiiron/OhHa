@@ -161,8 +161,47 @@ public class Lauta {
      * nollan voittoa(2) tai kertoo ettei voittosuoraa
      * löydy(0)
      */
-    public void testaaVoittoVino() {
-        //WORK ON PROGRESS
+    public int testaaVoittoVino() {
+        int counter = 0;
+        for (int i = 0; i < lauta.length; i++) {
+            for (int j = 0; j < lauta[i].length; j++) {
+                if (lauta[i][j] != 0) {
+                    if (i + voittosuora <= lauta.length && j + voittosuora <= lauta[i].length) {
+                        int etsittava = lauta[i][j];
+                        counter++;
+                        int j2 = j + 1;
+                        for (int k = i + 1; k < i + voittosuora; k++) {
+                            if (lauta[k][j2] == etsittava) {
+                                counter++;
+                                j2++;
+                            }
+                        }
+                        if (counter == voittosuora) {
+                            return etsittava;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                    if(i + voittosuora <= lauta.length && j - voittosuora + 1 >= 0){
+                        int etsittava = lauta[i][j];
+                        counter++;
+                        int j2 = j - 1;
+                        for (int k = i + 1; k < i + voittosuora; k++) {
+                            if (lauta[k][j2] == etsittava) {
+                                counter++;
+                                j2--;
+                            }
+                        }
+                        if (counter == voittosuora) {
+                            return etsittava;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+        }
+        return 0;    
     }
     
     /**

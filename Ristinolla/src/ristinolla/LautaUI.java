@@ -258,7 +258,7 @@ public class LautaUI implements Runnable {
                                 vuoroX = true;
                                 lauta.asetaMerkki(koordinaatti, 2);
                             }
-                            if (lauta.testaaVoittoPysty() != 0 || lauta.testaaVoittoVaaka() != 0) {
+                            if (lauta.testaaVoittoPysty() != 0 || lauta.testaaVoittoVaaka() != 0 || lauta.testaaVoittoVino() != 0) {
                                 freeze = true;
                                 //lisää piste voittavalle pelaajalle
                                 int kumpi = 1;
