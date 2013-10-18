@@ -120,7 +120,11 @@ public class LautaUI implements Runnable {
         }
         return panel;
     }
-
+    
+    /**
+     * Metodi luo Asetusikkunan, ja antaa napeille
+     * actionListenerit
+     */
     private Component luoAsetukset() {
         JPanel panel = new JPanel(new GridLayout(4, 2));
         JLabel pelaaja1Teksti = new JLabel("Pelaaja X: ");
@@ -134,7 +138,7 @@ public class LautaUI implements Runnable {
         tallennusNappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent a) {
-                if (!peliKaynnissa) {  // Asetuksia voi muuttaa vain jos peli ei ole kesken
+                if (!peliKaynnissa) {
                     String pelaajaX = "pelaajaX";
                     String pelaajaO = "pelaajaO";
 
@@ -174,7 +178,11 @@ public class LautaUI implements Runnable {
 
         return panel;
     }
-
+    
+    /**
+     * Metodi luo valikot, ja antaa napeille
+     * actionListenerit
+     */
     private Component luoValikko() {
         JSplitPane palautettava = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         
@@ -234,7 +242,12 @@ public class LautaUI implements Runnable {
         palautettava.setBottomComponent(alhaallaKuva);
         return palautettava;
     }
-
+    
+    /**
+     * Metodi luo pelikentän, alustaa napit liittäen ne
+     * Lauta -luokan taulukkoon, ja antaa napeille
+     * actionListenerit
+     */
     private Component luoKentta() {
         JPanel panel = new JPanel(new GridLayout(10, 10));
         int count = 0;
@@ -260,7 +273,6 @@ public class LautaUI implements Runnable {
                             }
                             if (lauta.testaaVoittoPysty() != 0 || lauta.testaaVoittoVaaka() != 0 || lauta.testaaVoittoVino() != 0) {
                                 freeze = true;
-                                //lisää piste voittavalle pelaajalle
                                 int kumpi = 1;
                                 if (vuoroX) {
                                     kumpi = 2;

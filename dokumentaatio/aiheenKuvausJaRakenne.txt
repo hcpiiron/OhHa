@@ -4,6 +4,27 @@ Toteutetaan kahden pelaajan välinen ristinolla peli, joka toimii graafisella k�
 Käyttäjät: Kaksi pelaajaa
 
 Kaikki käyttäjien toiminnot:
--uusi peli
--pelin ruutukoon vaihtaminen
+-uuden pelin aloittaminen
+-pelin jatkaminen jos jäi kesken
 -tarvittavan voittosuoran pituuden vaihtaminen
+-pelaajien nimimerkkien vaihtaminen
+-pelin tulostaulun tarkastelu
+
+Lautaluokka vastaa pelissä valittujen risti- ja nollasymboleiden
+kirjanpidosta, sekä tarkastaa mahdollisia voittoja joka siirron jälkeen.
+Lauta tietää myös pelaajien nimimerkit, ja kumpi pelaa ristiä ja kumpi
+nollaa.
+
+Tilastoluokka säilyttää listat varatuista nimimerkeistä, sekä siitä,
+paljonko kullakin pelaajalla on pisteitä. Luokka tallentaa "highscoret"
+omaan Fileen.
+
+LautaUI pyörittää koko ohjelmaa luoden myös graafisen käyttöliittymän.
+Se antaa käskyt Lauta- ja Tilastoluokille, ja huolehtii vuoropohjaisesta
+logiikasta. Luokassa määritellään myös käyttöliittymän eri komponenttien
+ActionListener -toiminnot.
+
+PopUp on LautaUIn apuluokka, jolla Popup-ikkunan teko pelin päättyessä
+onnistui parhaiten.
+
+Luokka Main käynnistää softan.

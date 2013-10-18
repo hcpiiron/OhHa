@@ -1,0 +1,13 @@
+Aihe: ristinolla
+Toteutetaan kahden pelaajan välinen ristinolla peli, joka toimii graafisella käyttöliittymällä.
+
+Käyttäjät: Kaksi pelaajaa
+
+Kaikki käyttäjien toiminnot:
+-uuden pelin aloittaminen
+-pelin jatkaminen jos jäi kesken
+-tarvittavan voittosuoran pituuden vaihtaminen
+-pelaajien nimimerkkien vaihtaminen
+-pelin tulostaulun tarkastelu
+
+Pelissä on 
